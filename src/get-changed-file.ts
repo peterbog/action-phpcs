@@ -51,10 +51,15 @@ export async function getChangedFiles(): Promise<ChangedFiles> {
       modified: [],
     };
     for await (const line of readline) {
+      core.info(line);
       const parsed = /^(?<status>[ACMR])[\s\t]+(?<file>\S+)$/.exec(line);
+      core.info(parsed);
       if (parsed?.groups) {
         const { status, file } = parsed.groups;
         // ensure file exists
+        core.info(file);
+        core.info(isMatch(file));
+        core.info(existsSync(file));
         if (isMatch(file) && existsSync(file)) {
           switch (status) {
             case 'A':
