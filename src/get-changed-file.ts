@@ -27,6 +27,7 @@ export async function getChangedFiles(): Promise<ChangedFiles> {
     git diff-tree --no-commit-id --name-status --diff-filter=d -r ${{ github.event.pull_request.base.sha }}..${{ github.event.after }}
   */
   try {
+    console.log(payload.pull_request.base.sha);
     const git = spawn(
       'git',
       [
@@ -43,7 +44,6 @@ export async function getChangedFiles(): Promise<ChangedFiles> {
         timeout: 5000,
       }
     );
-    console.log(git.stdout);
     const readline = createInterface({
       input: git.stdout,
     });

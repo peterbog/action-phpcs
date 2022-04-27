@@ -8796,6 +8796,7 @@ async function getChangedFiles() {
       git diff-tree --no-commit-id --name-status --diff-filter=d -r ${{ github.event.pull_request.base.sha }}..${{ github.event.after }}
     */
     try {
+        console.log(payload.pull_request.base.sha);
         const git = child_process_1.spawn('git', [
             '--no-pager',
             'diff-tree',
@@ -8808,7 +8809,6 @@ async function getChangedFiles() {
             windowsHide: true,
             timeout: 5000,
         });
-        console.log(git.stdout);
         const readline = readline_1.createInterface({
             input: git.stdout,
         });
