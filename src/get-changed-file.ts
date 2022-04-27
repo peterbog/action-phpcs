@@ -43,7 +43,9 @@ export async function getChangedFiles(): Promise<ChangedFiles> {
         windowsHide: true,
         timeout: 5000,
       }
-    );
+    ).on('close', (code) => {
+      console.log('git returned ' + code);
+    });
     const readline = createInterface({
       input: git.stdout,
     });
